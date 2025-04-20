@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .container {
+            width: 350px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 16px;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ff7eb3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #ff477e;
+        }
+        .toggle {
+            margin-top: 15px;
+            color: #ffb3c6;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .toggle:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="form-container">
+        <h2 id="form-title">Đăng ký</h2>
+        <form id="formRegister">
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+            <button type="submit" id="submit-btn">Đăng ký</button>
+        </form>
+       <a href="login.html"><p class="toggle" id="toggle-form">Bạn đã có tài khoản? Đăng nhập</p></a>
+        <p id="message" style="color: #00ff00; margin-top: 10px; display: none;"></p>
+    </div>
+    
+    <script>
+        document.getElementById('formRegister').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirm-password');
+            
+            if (password !== confirmPassword) {
+                alert('Mật khẩu nhập lại không khớp!');
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:3000/users/register', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Lỗi: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                alert('Đăng ký thành công!');
+                e.target.reset();
+            } catch (error) {
+                console.error('Có lỗi xảy ra:', error);
+                alert('Email đã tồn tại.');
+            }
+        });
+    </script>
+</body>
+</html>

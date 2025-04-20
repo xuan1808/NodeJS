@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+</style>
+<body>
+    <body>
+        <!-- Form thêm sản phẩm -->
+        <form id="formProduct">
+            <input type="text" name="name" placeholder="Tên sản phẩm">
+            <br>
+            <input type="file" name="image" placeholder="Hình ảnh">
+            <br>
+            <input type="text" name="price" placeholder="Giá">
+            <br>
+            <select name="categoryId" id="categoryId">
+            </select>
+            <br>
+            <input type="text" name="description" placeholder="Mô tả">
+            <br>
+            <button type="submit">Thêm sản phẩm</button>
+        </form>
+    
+        <script>
+            // Lấy danh sách danh mục
+            let categoryHtml = "";
+            fetch('http://localhost:3000/categories')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(category => {
+                        categoryHtml += `<option value="${category._id}">${category.name}</option>`;
+                    });
+                    document.getElementById('categoryId').innerHTML = categoryHtml;
+                });
+                const form = document.getElementById('formProduct');
+
+                form.addEventListener('submit', async (e) =>{
+                    e.preventDefault();
+                    formData = new FormData(form);
+                    formData.forEach((value, key) =>{
+                        console.log(key, value);
+                        const token = localStorage.getItem('token'); // Lấy token đã lưu
+                    });
+                    try{
+                        const response = await fetch('http://localhost:3000/products',{
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                        'Authorization': `Bearer ${token}` // Truyền token vào header
+                    }
+                        });
+                        if(!response.ok()){
+                            throw new Error(`loi: ${response.status}`);
+                        }
+                        const data = await response.json();
+                        console.log('Thanh cong:',data);
+                    }catch(error){
+                        console.error('co loi xay ra', error);
+                    }
+                 window.location.href = 'admin.html';
+                });
+        </script>
+    </body>
+    
+</body>
+</html>

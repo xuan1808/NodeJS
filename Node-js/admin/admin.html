@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang ADMIN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+        }
+        button {
+            background: none;
+            border: 1px solid black;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            display: block;
+            margin: 10px auto;
+        }
+        button:hover {
+            background-color: white;
+            color: black;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: rgb(152, 225, 247);
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trang ADMIN</h1>
+    <a href="themsp.html">
+        <button>Thêm sản phẩm</button>
+    </a>
+    <h2>Danh sách sản phẩm</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>TÊN SẢN PHẨM</th>
+                <th>HÌNH ẢNH</th>
+                <th>DANH MỤC</th>
+                <th>GIÁ</th>
+                <th>THAO TÁC</th>
+            </tr>
+        </thead>
+        <tbody id="productContent"></tbody>
+    </table>
+    
+    <h2>Danh sách danh mục</h2>
+    <a href="themdm.html">
+        <button>Thêm danh mục</button>
+    </a>
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>TÊN DANH MỤC</th>
+                <th>THAO TÁC</th>
+            </tr>
+        </thead>
+        <tbody id="categoryContent"></tbody>
+    </table>
+
+    <script>
+        const fetchProducts = async () => {
+            const products = await fetch('http://localhost:3000/products').then(res => res.json());
+            let html = "";
+            products.forEach((product, index) => {
+                html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${product.name}</td>
+                    <td><img src="http://localhost:3000/images/${product.image}" width="100"></td>
+                    <td>${product.categoryId.name}</td>
+                    <td>${product.price}</td>
+                    <td>
+                        <a href="suasp.html?id=${product._id}"><button>Sửa</button></a>
+                        <button onclick="deleteProduct('${product._id}')">Xóa</button>
+                    </td>
+                </tr>`;
+            });
+            document.getElementById('productContent').innerHTML = html;
+        };
+
+        const fetchCategories = async () => {
+            const categories = await fetch('http://localhost:3000/categories').then(res => res.json());
+            let html = "";
+            categories.forEach((category, index) => {
+                html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${category.name}</td>
+                    <td>
+                        <a href="suadm.html?id=${category._id}"><button>Sửa</button></a>
+                        <button onclick="deleteCategory('${category._id}')">Xóa</button>
+                    </td>
+                </tr>`;
+            });
+            document.getElementById('categoryContent').innerHTML = html;
+        };
+
+        const deleteProduct = async (_id) => {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?")) {
+                await fetch(`http://localhost:3000/products/${_id}`, { method: 'DELETE' });
+                fetchProducts();
+            }
+        };
+
+        const deleteCategory = async (_id) => {
+            if (confirm("Bạn có chắc chắn muốn xóa danh mục này không?")) {
+                await fetch(`http://localhost:3000/categories/${_id}`, { method: 'DELETE' });
+                fetchCategories();
+            }
+        };
+
+        fetchProducts();
+        fetchCategories();
+    </script>
+</body>
+</html>

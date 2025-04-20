@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop HOA 2025</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="./img/logo.png" type="./img/logo.png">
+</head>
+<body>
+    <header>
+        <input type="checkbox" id="toggler">
+        <label for="toggler" class="fas fa-bars"></label>
+        <a href="#">        
+            <img class="logo" src="./img/logo1.png" alt="">
+        </a>
+        <nav class="navbar">
+            <a href="#">TRANG CHỦ</a>
+            
+        </nav>
+        <div class="icons">
+            <a href=""><i class="fa-solid fa-heart"></i></a>
+            <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="login.html"><i class="fa-solid fa-user"></i></a>      
+        </div>
+    </header>
+   <div class="img">
+    <img src="img/banner-bo-hoa-sinh-nhat-2048x853.png" alt="">
+   </div>
+   
+    </section>
+
+    <main>
+        <section class="icons-container">
+            <div class="icons">
+                <img src="./img/Giaohangmienphi.jpg" alt="">
+                <div class="info">
+                    <h3>Giao hàng miễn phí</h3>
+                    <span>Trên tất cả các đơn đặt hàng</span>
+                </div>
+            </div>
+            <div class="icons">
+                <img src="./img/tietkiem.jpg" alt="">
+                <div class="info">
+                    <h3>Trả hàng trong 10 ngày</h3>
+                    <span>Đảm bảo hoàn tiền</span>
+                </div>
+            </div>
+            <div class="icons">
+                <img src="./img/uudai.jpg" alt="">
+                <div class="info">
+                    <h3>Ưu đãi & quà tặng</h3>
+                    <span>Trên tất cả các đơn đặt hàng</span>
+                </div>
+            </div>
+            <div class="icons">
+                <img src="./img/tietkiem.jpg" alt="">
+                <div class="info">
+                    <h3>Thanh toán an toàn</h3>
+                    <span>Được bảo vệ bởi PayPal</span>
+                </div>
+            </div>
+        </section>
+        <section class="product" id="product">
+            <h1 class="heading">SẢN PHẨM<span> BÁN CHẠY</span></h1>
+
+                <div class="box">
+                    
+
+
+                    
+
+
+                </div>
+            
+        
+        </section>
+      
+
+        
+        <section class="contact" id="contact">
+            <h1 class="heading"><span>Liên</span> hệ</h1>
+            <div class="row">
+                <form action="">
+                    <input type="text" placeholder="Name" class="box">
+                    <input type="email" placeholder="Email" class="box">
+                    <input type="number" placeholder="Number" class="box">
+                    <textarea name="" class="box" placeholder="Ghi chú" id="" cols="30" rows="10"></textarea>
+                    <input type="submit" value="Gửi" class="btn">
+                </form>
+                <div class="image">
+                    <img src="./img/from.jpeg" alt="">
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    
+    <footer class="footer">
+       
+        <div class="credit">
+        © 2017 - 2024 Shop quần áo HCM<span>.</span> | All rights reserved.        </div>
+    </footer>
+</body>
+</html>
+<script>
+    let html = document.querySelector('.box');
+    const fechtProduct = async() => {
+        const data = await fetch('http://localhost:3000/products')
+        .then(reponse => reponse.json());
+        console.log(data);
+        data.forEach (product => 
+            {
+                html.innerHTML+=`
+                            <div class="boxx">
+                            <a href="productDetail.html?id=${product._id}">
+                        <div class="image">
+                           
+                            <img src="http://localhost:3000/images/${product.image}" alt="">                        
+                        </div>
+                             <div class="boxxx">
+                            <h3>${product.name}</h3>
+                            <div class="price">
+                            ${product.price}<sup>đ</sup>
+                            </div>
+                             </div>
+                             </div>
+                     
+                    </a>
+
+                `;
+            }
+        )
+    }
+    fechtProduct();
+    let menu = document.querySelector('.navbar');
+    const fetchMenu = async() => {
+        const data = await fetch('http://localhost:3000/categories')
+        .then(reponse => reponse.json());
+        data.forEach (categories =>{
+            menu.innerHTML+=`
+              <a href="index.html?category=${categories._id}">${categories.name}</a>
+            `;
+        })
+
+    }
+    fetchMenu();
+
+   
+///
+
+   
+</script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+        nav {
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            padding: 0px 5rem;
+            justify-content: space-between;
+        }
+        nav >.logo img{
+            max-width: 5rem;
+            border-radius: 50%;
+        }
+        .menu ul{
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+        .menu ul li{
+            margin-right: 20px;
+        }
+        .fa-solid{
+            display: none;
+        }
+        #menu{
+            display: none;
+        }
+        .menu ul li .product{
+            position: absolute;
+            display: none;
+            flex-direction: column;
+        }
+        .menu ul li:hover .product{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="menu" >
+        <label for="menu" class="fa-solid fa-bars"></label>
+        <div class="logo">
+            <a href=""> 
+                <img src="./img/logo.png" alt="">
+            </a>
+
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#">TRANG CHỦ</a></li>
+                <li>
+                    <a href="#">SẢN PHẨM</a>
+                    <ul class="product">
+                        <li><a href="">Áo</a></li>
+                        <li><a href="">Quần</a></li>
+                        <li><a href="">Phụ kiện</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">LIÊN HỆ</a></li>
+                <li><a href="#">GỚI THIỆU</a></li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

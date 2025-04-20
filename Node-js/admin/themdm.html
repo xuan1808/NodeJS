@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+</style>
+<body>
+    <body>
+        <!-- Form thêm sản phẩm -->
+        <form id="formProduct">
+            <input type="text" name="name" placeholder="Tên Danh Mục">
+            <br>
+           
+            
+            <button type="submit">Thêm Danh Mục</button>
+        </form>
+    
+        <script>
+            
+      
+           
+            document.getElementById('formProduct').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = {
+        name: document.querySelector('[name="name"]').value
+    };
+
+    try {
+        const response = await fetch('http://localhost:3000/categories', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData) 
+        });
+
+        if (!response.ok) {
+            throw new Error(`Lỗi: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Thành công:', data);
+        alert("Thêm danh mục thành công!");
+        window.location.href = 'admin.html';
+
+    } catch (error) {
+        console.error('Có lỗi xảy ra:', error);
+    }
+});
+
+        </script>
+    </body>
+    
+</body>
+</html>

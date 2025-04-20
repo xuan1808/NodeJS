@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh Sửa Sản Phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        input, button {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <form id="formEditProduct">
+        <h2>Chỉnh Sửa Danh Mục</h2>
+        <input type="hidden" name="categoryId" id="categoryId">
+        <input type="text" name="name" id="name" placeholder="Tên sản phẩm" required>
+        <button type="submit">Lưu thay đổi</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const params = new URLSearchParams(window.location.search);
+            const categoryId = params.get('id');
+            document.getElementById('categoryId').value = categoryId;
+
+            try {
+                // Lấy thông tin sản phẩm cần chỉnh sửa
+                const categoryResponse = await fetch(`http://localhost:3000/categories/${categoryId}`);
+                if (!categoryResponse.ok) {
+                    throw new Error(`Lỗi tải danh mục: ${categoryResponse.status}`);
+                }
+                const category = await categoryResponse.json();
+                document.getElementById('name').value = category.name;
+            } catch (error) {
+                console.error('Lỗi:', error);
+            }
+        });
+
+        // Xử lý gửi form chỉnh sửa sản phẩm
+        document.getElementById('formEditProduct').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Ngăn chặn load lại trang
+
+            const categoryId = document.getElementById('categoryId').value;
+            const formData = { name: document.getElementById('name').value };
+
+            try {
+                const response = await fetch(`http://localhost:3000/categories/${categoryId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                console.log('Phản hồi từ server:', data);
+
+                if (response.ok) {
+                    alert('Cập nhật danh mục thành công!');
+                     window.location.href = 'admin.html'; // Chuyển về trang quản lý
+                } else {
+                    alert('Lỗi cập nhật danh mục!');
+                }
+            } catch (error) {
+                console.error('Lỗi cập nhật sản phẩm:', error);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop quần áo 2024</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="./img/logo.png" type="./img/logo.png">
+</head>
+<body>
+    <header>
+        <input type="checkbox" id="toggler">
+        <label for="toggler" class="fas fa-bars"></label>
+        <a href="#">        
+            <img class="logo" src="./img/logo1.png" alt="">
+        </a>
+        <nav class="navbar">
+            <a href="index.html">TRANG CHỦ</a>
+            <a href="#">HOA SINH NHẬT</a>
+            <a href="#">HOA KHAI TRƯƠNG </a>
+            <a href="#">BÓ HÓA</a>
+          
+        </nav>
+        <div class="icons">
+            <a href=""><i class="fa-solid fa-heart"></i></a>
+            <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href=""><i class="fa-solid fa-user"></i></a>      
+        </div>
+    </header>
+    <section class="productdetail">
+        <div class="row">
+           
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Liên kết nhanh</h3>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Product</a>
+                <a href="#">Review</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="box">
+                <h3>Follow me</h3>
+                <a href="#" target="_blank">Tiktok</a>
+                <a href="https://www.facebook.com/profile.php?id=100044077067620" target="_blank">Facebook</a>
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">Zalo</a>
+            </div>
+            <div class="box">
+                <h3>Địa điểm</h3>
+                <a href="#">Tp.HCM</a>
+                <a href="#">Hà nội</a>
+                <a href="#">Bình Định</a>
+                <a href="#">Đà Nẵng</a>
+            </div>
+            <div class="box">
+                <h3>Liên hệ</h3>
+                <a href="#">0376626344</a>
+                <a href="#">taolakiet2711@gmail.com</a>
+                <img src="" alt="">
+            </div>
+        </div>
+        <div class="credit">
+        © 2017 - 2024 Shop quần áo HCM<span>.</span> | All rights reserved.        </div>
+    </footer>
+</body>
+</html>
+<script>
+    let html = document.querySelector('.row');
+    const fechtData = async () => {
+    let id = new URLSearchParams(window.location.search).get('id');
+    console.log(id);
+    const product = await fetch(`http://localhost:3000/products/${id}`)
+    
+    
+    .then(reponse => reponse.json());
+    console.log(product);
+    html.innerHTML = `
+                <div class="content">
+                <h3>${product.name}</h3>
+                <p>Giá:</p>
+                <p class="price">${product.price} <sup>đ</sup></p>
+                <p>Kích thước:</p>
+                <div class="size">
+                    <button>S</button>
+                    <button>M</button>
+                    <button>L</button>
+                    <button>XL</button>
+                </div>
+                <p>Số lượng:</p>
+                <div class="count">
+                    <button>-</button>
+                    <input type="text" value="1" id="input">
+                    <button>+</button>
+                </div>
+
+                <button class="btn">Đặt hàng</button>
+            </div>
+            <div class="image_product">
+                <img src="http://localhost:3000/images/${product.image}"" alt="">
+            </div>
+    `;
+    
+    }
+    fechtData();
+</script>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh Sửa Sản Phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        input, select, button {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        img {
+            max-width: 100%;
+            margin-top: 10px;
+            border-radius: 6px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="formEditProduct">
+        <h2>Chỉnh Sửa Sản Phẩm</h2>
+        <input type="hidden" name="productId" id="productId">
+        <input type="text" name="name" id="name" placeholder="Tên sản phẩm" required>
+        <input type="file" name="image" id="image">
+        <img id="previewImage" src="" width="100">
+        <input type="text" name="price" id="price" placeholder="Giá" required>
+        <select name="categoryId" id="categoryId" required>
+            <option value="">Chọn danh mục</option>
+        </select>
+    
+        <button type="submit">Lưu thay đổi</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id');
+            document.getElementById('productId').value = productId;
+            
+            try {
+                // Lấy danh sách danh mục
+                const categoriesResponse = await fetch('http://localhost:3000/categories');
+                const categories = await categoriesResponse.json();
+                let categoryHtml = "";
+                categories.forEach(category => {
+                    categoryHtml += `<option value="${category._id}">${category.name}</option>`;
+                });
+                document.getElementById('categoryId').innerHTML += categoryHtml;
+
+                // Lấy thông tin sản phẩm cần chỉnh sửa
+                const productResponse = await fetch(`http://localhost:3000/products/${productId}`);
+                const product = await productResponse.json();
+                
+                document.getElementById('name').value = product.name;
+                document.getElementById('price').value = product.price;
+                document.getElementById('categoryId').value = product.categoryId;
+
+                if (product.image) {
+                    document.getElementById('previewImage').src = `http://localhost:3000/images/${product.image}`;
+                    document.getElementById('previewImage').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Lỗi khi tải dữ liệu:', error);
+            }
+        });
+
+        // Xem trước ảnh khi chọn file mới
+        document.getElementById('image').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('previewImage').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Xử lý gửi form chỉnh sửa sản phẩm
+        document.getElementById('formEditProduct').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Ngăn chặn load lại trang
+
+            const formData = new FormData();
+            formData.append('name', document.getElementById('name').value);
+            formData.append('price', document.getElementById('price').value);
+            formData.append('categoryId', document.getElementById('categoryId').value);
+            
+            const imageFile = document.getElementById('image').files[0];
+            if (imageFile) {
+                formData.append('image', imageFile);
+            }
+           
+            try {
+                const response = await fetch(`http://localhost:3000/products/${productId.value}`, {
+                    method: 'PATCH',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    window.location.href = 'admin.html'; // Chuyển về trang quản lý
+                    alert('Cập nhật sản phẩm thành công!');
+                   
+                } else {
+                    alert('BẠN KO CO QUYEN TRUY CAP!');
+                }
+            } catch (error) {
+                console.error('Lỗi cập nhật sản phẩm:', error);
+            }
+        });
+    </script>
+</body>
+</html>

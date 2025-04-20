@@ -1,0 +1,562 @@
+:root{
+    --green: #31b64e;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    outline: none; border: none;
+    text-decoration: none;
+    /* text-transform: capitalize; Ghi hoa chữ cái đầu mỗi chữ */ 
+    transition: .2s linear;
+}
+html{
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden;
+}
+section{
+    background-color: #fff;
+    padding: 2rem 9%;
+}
+footer{
+    background-color: #fff;
+    padding: 2rem 9%;
+}
+.heading{
+    text-align: center;
+    font-size: 4rem;
+    color: #333;
+    padding: 1rem;
+    margin:  2rem 0;
+    background: rgb(255, 51, 153, .05);
+}
+.heading span{
+    color: var(--green);
+}
+.btn{
+    display: inline-block;
+    margin-top: 1rem;
+    border-radius: 5rem;
+    background: #333;
+    color:#fff;
+    padding: .9rem 3.5rem;
+    cursor: pointer;
+    font-size: 1.7rem;
+}
+.btn:hover{
+    background: var(--green);
+}
+header{
+    position: fixed;
+    top:0; left: 0; right: 0;
+    background-color: #fff;
+    padding: 1.5rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+header .logo{
+    max-width: 8rem;
+}
+header .logo span{
+    color: var(--green);
+}
+header .navbar a{
+    font-size: 2rem;
+    padding: 0 1.5rem;
+    color: #666;
+}
+header .navbar a:hover{
+    color: var(--green);
+}
+header .icons a{
+    font-size: 2.5rem;
+    color: #333;
+    margin-left:  1.5rem;
+}
+header .icons a:hover{
+    color: var(--green);
+}
+header #toggler{
+    display: none;
+}
+header .fa-bars{
+    font-size: 3rem;
+    color: #333;
+    border-radius: .5rem;
+    padding: .5rem 1.5rem;
+    cursor: pointer;
+    border: .1rem solid rgba(0, 0, 0, .3);
+    display: none;
+}
+.home{
+    
+    min-height: 100vh;
+   
+    
+   
+   
+}
+.home .content{
+    max-width: 60rem;
+}
+.home .content h3{
+    font-size: 5rem;
+    /* color: #788124;; */
+}
+.home .content span{
+    font-size: 3.5rem;
+    /* color: var(--green); */
+    padding: 1rem 0;
+    line-height: 1.5;
+}
+.home .content p{
+    font-size: 1.5rem;
+    color:#999;
+    padding: 1rem 0;
+    line-height: 1.5;
+}
+.about .row{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    padding-bottom:  3rem;
+}
+.about .row .video-container{
+     flex: 1 1 40rem; /*ko hiểu lăm coi lại */
+    position: relative;
+}
+.about .row .video-container video{
+    width: 100%;
+    border: 1.5rem solid #fff ;
+    border-radius: .5rem;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    height: 100%;
+    object-fit: cover;
+}
+/* .about .row .video-container h3{
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    font-size: 3rem;
+    color: #333;
+    background: #fff;
+    width: 100%;
+    padding:  1rem 2rem;
+    text-align: center;
+    mix-blend-mode: screen;
+    chữ nổi lên trên khung và video
+} */
+.about .row .content{
+    flex: 1 1 40rem;
+}
+.about .row .content h3{
+    font-size: 3rem;
+    color: #333;
+}
+.about .row .content p{
+    font-size:  1.5rem;
+    color:  #999;
+    padding: .5rem 0;
+    padding-top: 1rem;
+    line-height: 1.5;
+}
+.icons-container{
+    background: #eee;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+.icons-container .icons{
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .1);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    flex: 1 1 25rem;
+}
+.icons-container .icons img{
+    height: 5rem;
+    margin-right:  2rem;
+}
+.icons-container .icons h3{
+    color: #333;
+    padding-bottom: .5rem;
+    font-size: 1.5rem;
+}
+.icons-container .icons span{
+    color: #555;
+    font-size: 1.3rem;
+}
+
+.product  .box{
+    width: 100%;
+    height: 35rem;
+   
+    
+
+  
+ 
+    display: flex;
+    gap: 17px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    position: relative;
+    z-index: 0;
+  
+  
+    
+   
+}
+.img{
+    margin-top: 78px;
+   
+}
+.img img{
+    width: 100%;
+}
+
+
+   
+   
+
+.box .image img{
+    width: 25rem;
+    height: 30rem;
+    transition: 0.4s;
+}
+.box 
+.product  .box:hover{
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+.product  .box .discount{
+    position: absolute;
+    top:.5rem;
+    right: .5rem;
+    color: #fff;
+    padding: .2rem .2rem;
+    font-size: 1.5rem;
+    border-left: 1px  dashed white;
+    border-right: 1px dashed white;
+    background-color: #F69113;
+    z-index: 10000;
+}
+.product  .box .content{
+ 
+    
+  
+}
+.product  .box h3{
+    
+    width: 80%px;
+   
+    color: rgb(64, 185, 241);
+    font-weight: 400;
+    font-size: 16px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+   
+}
+.product  .box  .price{
+    font-size: 18px;
+    color: rgb(248, 27, 82);
+    font-weight: 600;
+}
+.product  .box .content .price{
+    font-size: 2rem;
+    font-weight: bolder;
+    padding: 1rem;
+}
+.product .box .content .price del{
+    font-size: 1.5rem;
+    font-weight: lighter;
+    text-decoration: line-through;
+    color: #7E8886;
+}
+.image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.fixed-image {
+    position: fixed;
+    top: 6.7rem; /* Adjust based on header height */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 6.7rem); /* Subtract the top offset */
+    object-fit: cover;
+    z-index: -1; /* Ensure the image is below the text */
+}
+
+.contents {
+    margin-top: 100px;
+    margin:  auto;
+    width: 80%; /* Adjust width for responsiveness */
+    max-width: 120vh; /* Limit width to 100vh */
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 100px 20px; /* Add horizontal padding */
+    color: white;
+}
+
+.contents h3 {
+    background: rgba(0, 0, 0, 0);
+    font-size: 4rem;
+    color: black;
+}
+
+.contents span {
+    font-size: 1.5rem;
+    color: black;
+    padding: 1rem 0;
+    line-height: 1.5;
+}
+
+.contents p {
+    font-size: 1.5rem;
+    color: black;
+    padding: 4rem 0;
+    line-height: 1.5;
+}
+
+.contents button {
+    background: rgba(0, 0, 0, 0);
+    margin: 2rem;
+    padding: 1rem 3rem;
+    border: 1px solid black;
+    cursor: pointer; /* Add cursor pointer for better UX */
+    transition: background 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.contents button:hover {
+    color: white;
+    background: rgb(36, 35, 35);
+}
+.contact .row{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    gap: 1.5rem;
+    justify-content: center;
+}
+.contact .row form{
+    flex: 1 1 40rem;
+    padding:  2rem 2.5rem;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    border: .1rem solid rgba(0, 0, 0, .1);
+    border-radius: .5rem;
+    background-color: #fff;
+}
+.contact .row ,image{
+    flex: 1 1 40rem;
+}
+.contact .row .image img{
+    width: 100%;
+}
+.contact .row form  .box{
+    padding: 1rem;
+    font-size: 1.7rem;
+    color: #333;
+    text-transform: none;
+    border: .1rem solid rgba(0, 0, 0, .1);
+    border-radius: .5rem;
+    margin: .7rem 0;
+    width: 100%;
+}
+.contact .row form .box:focus{
+    border-color: var(--green);
+}
+.contact .row form textarea{
+    height: 15rem;
+    resize: none;
+}
+.footer{
+    margin-top: 200px;
+}
+.footer .box{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+.footer  .box{
+    flex: 1 1 25rem;
+}
+.footer .box-container .box h3{
+    color: #333;
+    font-size:  2.5rem;
+    padding: 1rem 0;
+}
+.footer  .box a{
+    display: block;
+    color: #333;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+}
+.footer  .box a:hover{
+    color: var(--green);
+    text-decoration: underline;
+}
+.footer  .box img{
+    margin-top:  1rem;
+}
+.footer .credit{
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 2.5rem;
+    font-size: 2rem;
+    border-top: .1rem solid rgba(0, 0, 0, .1);
+}
+.footer .credit span{
+    color: var(--green);
+}
+/* trang chi tiết */
+.productdetail .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 6.7rem;
+}
+
+.productdetail .row .content {
+    flex: 1 1 40rem;
+    padding: 2rem 2.5rem;
+    border-radius: .5rem;
+    background-color: #fff;
+    order: 2; /* Đặt nội dung sau hình ảnh mặc định */
+}
+
+.productdetail .row .image_product {
+    flex: 1 1 40rem;
+    order: 1; /* Đặt hình ảnh trước nội dung mặc định */
+}
+
+.productdetail .row .image_product img {
+    width: 100%;
+}
+
+.productdetail .row .content h3 {
+    font-size: 4rem;
+}
+
+.productdetail .row .content p {
+    padding-top: 2rem;
+    font-size: 1.5rem;
+}
+
+.productdetail .row .content .price {
+    font-size: 2rem;
+    font-weight: bolder;
+    padding: 0;
+}
+
+.productdetail .row .content .size {
+    padding-top: 2rem;
+}
+
+.productdetail .row .content .size button {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.productdetail .row .content .size button:focus {
+    background: rgb(237, 28, 36);
+    color: white;
+}
+
+.productdetail .row .content .count {
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+}
+
+.productdetail .row .content .count input {
+    width: 4rem;
+    height: 3rem;
+    padding-left: 1.5rem;
+    background: rgba(0, 0, 0, .1);
+}
+
+.productdetail .row .content .count button {
+    border: 1px solid rgba(0, 0, 0, .1);
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.productdetail .row .content .count button:hover {
+    background-color: #c3d7d2;
+}
+.footer{
+    position:relative;
+    margin-top: 5%;
+
+}
+
+.contact{
+    position:relative;
+    margin-top: 30%;
+
+}
+.boxx{
+    
+    
+}
+.image{
+    border-radius: 5px;
+    overflow:hidden;
+    
+  
+}
+.boxxx{
+    margin: 0;
+    width: 100%;
+    height: 80px;
+    background-color: rgb(252, 244, 244);
+    border-bottom-right-radius:  10px;
+    border-bottom-left-radius: 10px;
+   
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
